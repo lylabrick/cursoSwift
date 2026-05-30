@@ -7,24 +7,48 @@
 
 import Foundation
 
-print("--- Calculadora de Estadísticas ---")
-print("Ingresa los números separados por espacios (ej: 10 20 30.5):")
+//Calculador con Var
+// ──────────────────────────────────────────────
+// Loop principal
+// ──────────────────────────────────────────────
 
-//Leemos la Línea de la consola
+var ejecutando = true
 
-if let entrada = readLine(){
-    // Convertimos el string en un array de números Double
-    let numeros = entrada.split(separator: " ").compactMap(Double($0))
-    
-    if numeros.isEmpty {
-        print("No ingresaste números válidos")
-    } else {
-        let suma = numeros.reduce(0, +)
-        let promedio = 
-        
+while ejecutando {
+    mostrarMenu()
+    print("  Opción: ", terminator: "")
+
+    // Optional binding sobre readLine()
+    guard let opcion = readLine()?.trimmingCharacters(in: .whitespaces) else {
+        continue
     }
-    
-    
+
+    switch opcion {
+    case "1":
+        print("\n  Ingresá los números separados por coma (ej: 1, 2.5, 3):")
+        print("  > ", terminator: "")
+
+        if let entrada = readLine() {
+            do {
+                let numeros = try parsearNumeros(desde: entrada)
+                mostrarResultados(numeros: numeros)
+            } catch ErrorEstadistica.entradaVacia {
+                print("\n  ⚠️  No ingresaste ningún número.")
+            } catch ErrorEstadistica.conversionFallida(let valor) {
+                print("\n  ⚠️  '\(valor)' no es un número válido.")
+            } catch {
+                print("\n  ⚠️  Error inesperado: \(error)")
+            }
+        }
+
+    case "2":
+        ejemplos()
+
+    case "3":
+        print("\n  Hasta luego.\n")
+        ejecutando = false
+
+    default:
+        print("\n  Opción no válida.")
+    }
 }
-
-
