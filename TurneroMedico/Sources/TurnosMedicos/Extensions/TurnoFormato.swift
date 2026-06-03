@@ -5,20 +5,26 @@
 //  Created by Lylabrick on 01/06/2026.
 //
 
-extension Paciente {
-    func descripcionCompleta() -> String {
-        return """
-        Paciente: \(nombreCompleto)
-        DNI: \(dni)
-        Edad: \(edad) años
-        Email: \(email)
-        Teléfono: \(telefono)
-        Turnos tomados: \(cantidadTurnos)
-        """
+import Foundation
+
+extension Turno {
+    var descripcionFecha: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy HH:mm"
+        formatter.locale = Locale(identifier: "es_AR")
+        return formatter.string(from: fecha)
     }
 
-    func requiereAyuno(para especialidad: Especialidad) -> String {
-        let requiere = especialidad.requiereAyuno()
-        return requiere ? "Recuerde concurrir en ayunas." : "No requiere ayuno."
+    func descripcionCompleta() -> String {
+        return """
+        Turno ID: \(id)
+        Paciente: \(paciente.nombreCompleto)
+        Especialidad: \(especialidad.rawValue)
+        Médico: \(medico)
+        Fecha: \(descripcionFecha)
+        Duración: \(duracionMinutos) minutos
+        Estado: \(estado.rawValue)
+        \(paciente.requiereAyuno(para: especialidad))
+        """
     }
 }
