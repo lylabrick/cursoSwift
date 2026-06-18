@@ -1,0 +1,20 @@
+# --- Archivos del Sistema ---
+.DS_Store
+.netrc
+
+# --- Residuos de Swift Package Manager (Viejo) ---
+/.build
+/Packages
+.swiftpm/
+
+# --- Datos Locales y Temporales de Xcode ---
+build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xcworkspace
+
+# --- REGLA CLAVE PARA XCODEGEN ---
+# Ignoramos todos los proyectos de Xcode generados automáticamente.
+# De esta forma, tu Git se limpia por completo de esos archivos repetidos.
+*.xcodeproj/
